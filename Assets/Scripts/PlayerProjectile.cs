@@ -1,0 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class PlayerProjectile : MonoBehaviour
+{
+    private Vector3 direction = Vector3.up;
+
+    public System.Action projectileDestroyed;
+    public float projectileSpeed = 2.0f;
+
+    // Update is called once per frame
+    void Update()
+    {
+        this.transform.position += this.direction * (projectileSpeed * Time.deltaTime);
+    }
+    
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        this.projectileDestroyed.Invoke();
+        Destroy(this.gameObject);
+    }
+}
